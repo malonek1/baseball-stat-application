@@ -1,4 +1,4 @@
-package com.baseball.BaseballAPI.pojo;
+package com.baseball.BaseballAPI.payload;
 
 public class Cat {
     private String fact;

@@ -1,5 +1,8 @@
-package com.baseball.BaseballAPI.pojo;
+package com.baseball.BaseballAPI.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Season {
 
     int Season;
