@@ -15,9 +15,9 @@ public class BaseballApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BaseballApiApplication.class, args);
 
-		StandingsConsumerService standings = new StandingsConsumerService();
-
-		System.out.println(standings.getTeamStandings(standings.getObjectPayload()));
+//		StandingsConsumerService standings = new StandingsConsumerService();
+//
+//		System.out.println(standings.getTeamStandings(standings.getObjectPayload()));
 
 	}
 }

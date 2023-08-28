@@ -1,10 +1,8 @@
 package com.baseball.BaseballAPI.consumer;
 
-import com.baseball.BaseballAPI.config.BaseballProperties;
 import com.baseball.BaseballAPI.payload.TeamStandings;
 import com.fasterxml.jackson.databind.MapperFeature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -15,12 +13,11 @@ import java.util.stream.Collectors;
 
 public class StandingsConsumerService implements ConsumerService {
 
-    private final String BASE_URL = "https://api.sportsdata.io/v3/mlb/scores/json/";
-    private final String COMPLETE_URL;
     private final WebClient webClient;
 
+    @Autowired
     public StandingsConsumerService() {
-        this.COMPLETE_URL = BASE_URL + "Standings/2023?" + "key=bbac190de96f4dc4a9dbcea47854b0b2";
+        String COMPLETE_URL = BASE_URL + "Standings/2023?key=bbac190de96f4dc4a9dbcea47854b0b2";
         this.webClient = WebClient.builder().baseUrl(COMPLETE_URL).build();
     }
 
