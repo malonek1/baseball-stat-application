@@ -11,19 +11,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StandingsConsumerService implements ConsumerService {
+public class BaseballConsumerService implements ConsumerService {
 
-    private final WebClient webClient;
+    private final WebClient.Builder webClient;
 
     @Autowired
-    public StandingsConsumerService() {
-        String COMPLETE_URL = BASE_URL + "Standings/2023?key=bbac190de96f4dc4a9dbcea47854b0b2";
-        this.webClient = WebClient.builder().baseUrl(COMPLETE_URL).build();
+    public BaseballConsumerService() {
+        this.webClient = WebClient.builder();
     }
 
     @Override
-    public Mono<Object[]> getObjectPayload() {
-        Mono<Object[]> payload = webClient.get()
+    public Mono<Object[]> getObjectPayload(String url) {
+        Mono<Object[]> payload = webClient.baseUrl(url).build().get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Object[].class).log();

@@ -1,10 +1,7 @@
 package com.baseball.BaseballAPI;
 
-import com.baseball.BaseballAPI.consumer.StandingsConsumerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import org.springframework.web.reactive.function.client.WebClient;
 
 
 @SpringBootApplication
