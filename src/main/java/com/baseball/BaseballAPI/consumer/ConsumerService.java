@@ -5,5 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface ConsumerService {
     final ObjectMapper mapper = new ObjectMapper();
-    public Mono<Object[]> getObjectPayload(String url);
+    public Mono<Object> getJsonPayload(String url);
+    public Mono<Object[]> getJsonArrayPayload(String url);
 }
