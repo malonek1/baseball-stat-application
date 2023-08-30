@@ -4,6 +4,12 @@ target/
 ### IntelliJ IDEA ###
 .idea
 
+### MAVEN ###
+.mvn/
+mvnw
+mvnw.cmd
+
 ### Properties ###
 src/main/resources/application.properties
+
 

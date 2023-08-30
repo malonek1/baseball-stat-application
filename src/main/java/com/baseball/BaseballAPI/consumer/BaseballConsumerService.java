@@ -14,6 +14,16 @@ public class BaseballConsumerService implements ConsumerService {
         this.webClient = WebClient.builder();
     }
 
+    //A method that gets an object from json
+    @Override
+    public Mono<Object> getJsonPayload(String url) {
+        Mono<Object> payload = webClient.baseUrl(url).build().get()
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(Object.class).log();
+        return payload;
+    }
+
     //A method that gets an array of objects from a json array
     @Override
     public Mono<Object[]> getJsonArrayPayload(String url) {
@@ -21,16 +31,6 @@ public class BaseballConsumerService implements ConsumerService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Object[].class).log();
-        return payload;
-    }
-
-    //TODO: Continue working on new method that can get the object payload for a regular json string
-    @Override
-    public Mono<Object> getJsonPayload(String url) {
-        Mono<Object> payload = webClient.baseUrl(url).build().get()
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(Object.class).log();
         return payload;
     }
 }
