@@ -1,4 +1,4 @@
-package com.baseball.BaseballAPI.consumer;
+package com.baseball.BaseballAPI.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 @Service
-public class BaseballConsumerService implements ConsumerService {
+public class PayloadServiceImpl implements PayloadService {
 
     private final WebClient.Builder webClient;
     private String BASE_URL = "https://api.sportsdata.io/v3/mlb/scores/json/";
@@ -15,14 +15,14 @@ public class BaseballConsumerService implements ConsumerService {
     private String accessToken;
 
     @Autowired
-    public BaseballConsumerService() {
+    public PayloadServiceImpl() {
         this.webClient = WebClient.builder();
     }
 
     //A method that gets an object from json
     @Override
-    public Mono<Object> getJsonPayload(String temp) {
-        String url = BASE_URL + temp + accessToken;
+    public Mono<Object> getJsonPayload(String endpoint) {
+        String url = BASE_URL + endpoint + accessToken;
         Mono<Object> payload = webClient.baseUrl(url).build().get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
@@ -32,8 +32,8 @@ public class BaseballConsumerService implements ConsumerService {
 
     //A method that gets an array of objects from a json array
     @Override
-    public Mono<Object[]> getJsonArrayPayload(String temp) {
-        String url = BASE_URL + temp + accessToken;
+    public Mono<Object[]> getJsonArrayPayload(String endpoint) {
+        String url = BASE_URL + endpoint + accessToken;
         Mono<Object[]> payload = webClient.baseUrl(url).build().get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
