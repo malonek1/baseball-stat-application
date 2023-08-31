@@ -1,11 +1,11 @@
-package com.baseball.BaseballAPI.payload;
+package com.baseball.BaseballAPI.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamStandings {
 
-    String key, name, wins, losses;
+    private String key, name, wins, losses;
 
     public TeamStandings() {
 

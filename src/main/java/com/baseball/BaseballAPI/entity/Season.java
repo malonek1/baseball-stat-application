@@ -1,15 +1,18 @@
-package com.baseball.BaseballAPI.payload;
+package com.baseball.BaseballAPI.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Season {
 
-    int Season;
-    String RegularSeasonStartDate;
-    String PostSeasonStartDate;
-    String SeasonType;
-    String ApiSeason;
+
+    private int Season;
+    private String RegularSeasonStartDate;
+    private String PostSeasonStartDate;
+    private String SeasonType;
+    private String ApiSeason;
 
     public Season() {
 

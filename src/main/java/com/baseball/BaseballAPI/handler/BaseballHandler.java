@@ -1,10 +1,13 @@
-package com.baseball.BaseballAPI.service;
+package com.baseball.BaseballAPI.handler;
 
-import com.baseball.BaseballAPI.payload.Season;
-import com.baseball.BaseballAPI.payload.TeamStandings;
+import com.baseball.BaseballAPI.entity.Season;
+import com.baseball.BaseballAPI.entity.TeamStandings;
+import com.baseball.BaseballAPI.service.BaseballConsumerService;
 import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -12,15 +15,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
-public class BaseballPayloadService extends PayloadServiceImpl {
+public class BaseballHandler {
 
+    @Autowired
+    BaseballConsumerService baseballConsumerService;
+    @Autowired
+    ObjectMapper mapper;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public BaseballPayloadService(){}
+
+    public BaseballHandler(){}
 
     public List<TeamStandings> getTeamStandings(String endpoint) {
         logger.info("Mapping list of objects payload to class: TeamStandings.class");
-        Mono<Object[]> payload = getJsonArrayPayload(endpoint);
+        Mono<Object[]> payload = baseballConsumerService.getJsonArrayPayload(endpoint);
         Object[] objects = payload.block();
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         return Arrays.stream(objects)
@@ -30,7 +38,7 @@ public class BaseballPayloadService extends PayloadServiceImpl {
 
     public Season getSeason(String endpoint) {
         logger.info("Mapping object payload to class: Season.class");
-        Mono<Object> payload = getJsonPayload(endpoint);
+        Mono<Object> payload = baseballConsumerService.getJsonPayload(endpoint);
         Object object = payload.block();
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         return mapper.convertValue(object, Season.class);

@@ -8,8 +8,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
 @Service
-public class PayloadServiceImpl implements PayloadService {
+public class BaseballConsumerServiceImpl implements BaseballConsumerService {
 
     private final WebClient.Builder webClient;
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -18,7 +19,7 @@ public class PayloadServiceImpl implements PayloadService {
     private String accessToken;
 
     @Autowired
-    public PayloadServiceImpl() {
+    public BaseballConsumerServiceImpl() {
         this.webClient = WebClient.builder();
     }
 
@@ -27,7 +28,10 @@ public class PayloadServiceImpl implements PayloadService {
     public Mono<Object> getJsonPayload(String endpoint) {
         String url = BASE_URL + endpoint + accessToken;
         logger.info("Creating object from json with url: {}", url);
-        Mono<Object> payload = webClient.baseUrl(url).build().get()
+        Mono<Object> payload = webClient
+                .baseUrl(url)
+                .build()
+                .get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Object.class).log();
@@ -39,7 +43,10 @@ public class PayloadServiceImpl implements PayloadService {
     public Mono<Object[]> getJsonArrayPayload(String endpoint) {
         String url = BASE_URL + endpoint + accessToken;
         logger.info("Creating list of objects from json array with url: {}", url);
-        Mono<Object[]> payload = webClient.baseUrl(url).build().get()
+        Mono<Object[]> payload = webClient
+                .baseUrl(url)
+                .build()
+                .get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Object[].class).log();
