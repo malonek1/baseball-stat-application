@@ -1,26 +1,23 @@
 package com.baseball.BaseballAPI.service;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-@Service
+
 public class BaseballConsumerServiceImpl implements BaseballConsumerService {
 
-    private final WebClient.Builder webClient;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private String BASE_URL = "https://api.sportsdata.io/v3/mlb/scores/json/";
-    @Value("${token}")
-    private String accessToken;
-
+    private String accessToken, BASE_URL;
+    private WebClient.Builder webClient;
+    private Logger logger;
     @Autowired
-    public BaseballConsumerServiceImpl() {
-        this.webClient = WebClient.builder();
+    public BaseballConsumerServiceImpl(String accessToken, String BASE_URL, WebClient.Builder webClient, Logger logger) {
+        this.accessToken = accessToken;
+        this.BASE_URL = BASE_URL;
+        this.webClient = webClient;
+        this.logger = logger;
     }
 
     //A method that gets an object from json

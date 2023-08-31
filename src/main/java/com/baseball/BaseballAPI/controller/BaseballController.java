@@ -11,8 +11,13 @@ import java.util.List;
 
 @RestController
 public class BaseballController {
+
+    private BaseballHandler baseballHandler;
+
     @Autowired
-    BaseballHandler baseballHandler;
+    public BaseballController(BaseballHandler baseballHandler) {
+        this.baseballHandler = baseballHandler;
+    }
 
     @GetMapping("/standings")
     public List<TeamStandings> standings() {

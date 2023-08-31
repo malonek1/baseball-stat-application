@@ -17,14 +17,15 @@ import java.util.stream.Collectors;
 @Service
 public class BaseballHandler {
 
-    @Autowired
-    BaseballConsumerService baseballConsumerService;
-    @Autowired
-    ObjectMapper mapper;
+    private BaseballConsumerService baseballConsumerService;
+    private ObjectMapper mapper;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-
-    public BaseballHandler(){}
+    @Autowired
+    public BaseballHandler(BaseballConsumerService baseballConsumerService, ObjectMapper mapper){
+        this.baseballConsumerService = baseballConsumerService;
+        this.mapper = mapper;
+    }
 
     public List<TeamStandings> getTeamStandings(String endpoint) {
         logger.info("Mapping list of objects payload to class: TeamStandings.class");
