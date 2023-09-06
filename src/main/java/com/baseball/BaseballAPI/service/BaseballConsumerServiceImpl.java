@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 
 public class BaseballConsumerServiceImpl implements BaseballConsumerService {
@@ -22,31 +21,35 @@ public class BaseballConsumerServiceImpl implements BaseballConsumerService {
 
     //A method that gets an object from json
     @Override
-    public Mono<Object> getJsonPayload(String endpoint) {
+    public Object getJsonPayload(String endpoint) {
         String url = BASE_URL + endpoint + accessToken;
         logger.info("Creating object from json with url: {}", url);
-        Mono<Object> payload = webClient
+        Object payload = webClient
                 .baseUrl(url)
                 .build()
                 .get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(Object.class).log();
+                .bodyToMono(Object.class)
+                .log()
+                .block();
         return payload;
     }
 
     //A method that gets an array of objects from a json array
     @Override
-    public Mono<Object[]> getJsonArrayPayload(String endpoint) {
+    public Object[] getJsonArrayPayload(String endpoint) {
         String url = BASE_URL + endpoint + accessToken;
         logger.info("Creating list of objects from json array with url: {}", url);
-        Mono<Object[]> payload = webClient
+        Object[] payload = webClient
                 .baseUrl(url)
                 .build()
                 .get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(Object[].class).log();
+                .bodyToMono(Object[].class)
+                .log()
+                .block();
         return payload;
     }
 }

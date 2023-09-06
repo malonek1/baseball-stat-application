@@ -29,8 +29,7 @@ public class BaseballHandler {
 
     public List<TeamStandings> getTeamStandings(String endpoint) {
         logger.info("Mapping list of objects payload to class: TeamStandings.class");
-        Mono<Object[]> payload = baseballConsumerService.getJsonArrayPayload(endpoint);
-        Object[] objects = payload.block();
+        Object[] objects = baseballConsumerService.getJsonArrayPayload(endpoint);
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         return Arrays.stream(objects)
                 .map(object -> mapper.convertValue(object, TeamStandings.class))
@@ -39,8 +38,7 @@ public class BaseballHandler {
 
     public Season getSeason(String endpoint) {
         logger.info("Mapping object payload to class: Season.class");
-        Mono<Object> payload = baseballConsumerService.getJsonPayload(endpoint);
-        Object object = payload.block();
+        Object object = baseballConsumerService.getJsonPayload(endpoint);
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         return mapper.convertValue(object, Season.class);
     }
